@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	fmt.Print(stringutil.String("Hello, OTUS!"))
+	fmt.Println(stringutil.String("Hello, OTUS!"))
 }
