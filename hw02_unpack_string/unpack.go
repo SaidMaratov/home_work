@@ -22,8 +22,18 @@ func Unpack(input string) (string, error) {
 		if !unicode.IsDigit(letter) {
 			b.WriteRune(letter)
 		} else if unicode.IsDigit(letter) {
-			if unicode.IsDigit(array[i-1]) {
-				return "", ErrInvalidString
+			if array[i-1] == 92 {
+				k := b.String()
+				b.Reset()
+				b.WriteString(k[:len(k)-1])
+				b.WriteString(string(array[i]))
+				continue
+			} else if array[i-1] == 92 && unicode.IsDigit(array[i+1]) {
+				k := b.String()
+				b.Reset()
+				b.WriteString(k[:len(k)-1])
+				b.WriteString(strings.Repeat(string(array[i-1]), int(array[i+1]-'0')))
+				continue
 			}
 			k := int(letter - '0')
 			if letter-'0' == 0 {
